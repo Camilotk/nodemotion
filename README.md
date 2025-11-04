@@ -1,1 +1,3 @@
 # nodemotion
+
+![](./bitmap.png)
