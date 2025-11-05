@@ -7,7 +7,14 @@ namespace nodemotion {
 class SfmlRenderer : public IRenderer2D {
   public:
     SfmlRenderer(unsigned width, unsigned height, IVideoExporter* exporter = nullptr);
+
     void renderFrame(const FrameState& state) override;
+
+    sf::RenderTexture& getTexture() {
+        return m_texture;
+    }
+    void clear(uint32_t color);
+    void display();
 
   private:
     unsigned m_width;

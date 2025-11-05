@@ -13,9 +13,7 @@ FfmpegExporter::~FfmpegExporter() {
         end();
 }
 
-void FfmpegExporter::begin(const std::string& filename,
-                           std::uint32_t width,
-                           std::uint32_t height,
+void FfmpegExporter::begin(const std::string& filename, std::uint32_t width, std::uint32_t height,
                            std::uint32_t fps) {
     if (m_running)
         throw std::runtime_error("Exporter already running.");
@@ -24,11 +22,9 @@ void FfmpegExporter::begin(const std::string& filename,
     m_height = height;
 
     std::ostringstream cmd;
-    cmd << "ffmpeg -y -f rawvideo -pixel_format rgba "
-        << "-video_size " << width << "x" << height
-        << " -framerate " << fps
-        << " -i - -c:v libx264 -pix_fmt yuv420p "
-        << "\"" << filename << "\"";
+    cmd << "ffmpeg -y -f rawvideo -pixel_format rgba " << "-video_size " << width << "x" << height
+        << " -framerate " << fps << " -i - -c:v libx264 -pix_fmt yuv420p " << "\"" << filename
+        << "\"";
 
     std::cout << "[NodeMotion] Running command: " << cmd.str() << std::endl;
 
@@ -41,8 +37,7 @@ void FfmpegExporter::captureFrame(const std::uint8_t* rgbaData, std::size_t numB
         return;
 
     const std::size_t expected =
-        static_cast<std::size_t>(m_width) *
-        static_cast<std::size_t>(m_height) * 4u;
+        static_cast<std::size_t>(m_width) * static_cast<std::size_t>(m_height) * 4u;
 
     if (numBytes < expected)
         return;
@@ -70,16 +65,14 @@ void FfmpegExporter::openPipe(const std::string& cmd) {
         throw std::runtime_error("Failed to fork process");
 
     if (pid == 0) {
-        // --- Child process: runs ffmpeg ---
-        close(pipefd[1]);               // Close write end
-        dup2(pipefd[0], STDIN_FILENO);  // Redirect stdin to pipe
+        close(pipefd[1]);
+        dup2(pipefd[0], STDIN_FILENO);
         execlp("bash", "bash", "-c", cmd.c_str(), (char*)nullptr);
         std::cerr << "[NodeMotion] Failed to exec ffmpeg." << std::endl;
-        std::_Exit(1); // ensure immediate exit
+        std::_Exit(1);
     }
 
-    // --- Parent process ---
-    close(pipefd[0]); // Close read end
+    close(pipefd[0]);
     m_pipe = fdopen(pipefd[1], "wb");
     if (!m_pipe)
         throw std::runtime_error("Failed to open ffmpeg write stream");

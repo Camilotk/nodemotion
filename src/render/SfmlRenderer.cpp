@@ -18,11 +18,19 @@ void SfmlRenderer::renderFrame(const FrameState& state) {
     ball.setPosition(state.x, state.y);
 
     m_texture.draw(ball);
-    m_texture.display();
+    display();
+}
 
+void SfmlRenderer::clear(uint32_t color) {
+    sf::Color c((color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+    m_texture.clear(c);
+}
+
+void SfmlRenderer::display() {
+    m_texture.display();
     if (m_exporter) {
         sf::Image frame = m_texture.getTexture().copyToImage();
-        const std::uint8_t* pixels = frame.getPixelsPtr();
+        const auto* pixels = frame.getPixelsPtr();
         const std::size_t bytes = m_width * m_height * 4;
         m_exporter->captureFrame(pixels, bytes);
     }
