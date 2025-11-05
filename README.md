@@ -1,4 +1,6 @@
-# ![](./bitmap.png)
+<p align="center">
+    <img src="./nodemotion_logo.png">
+</p>
 
 **Node Motion** is a C++23 library for visualizing data structure operations as animated 2D motion.
 
