@@ -23,4 +23,4 @@ class SfmlRenderer : public IRenderer2D {
     IVideoExporter* m_exporter{nullptr};
 };
 
-} // namespace nodemotion
+}

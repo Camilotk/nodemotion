@@ -28,4 +28,4 @@ class IVideoExporter {
     virtual void end() = 0;
 };
 
-} // namespace nodemotion
+}

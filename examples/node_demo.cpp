@@ -22,13 +22,16 @@ int main() {
     Node* l2 = motion.createNode("l");
     Node* o  = motion.createNode("o");
 
-    motion.linkNodes(h,  e);
-    motion.linkNodes(e,  l1);
-    motion.linkNodes(l1, l2);
-    motion.linkNodes(l2, o);
+    // Timeline ops in same order as code lines:
+    motion.addLast(h);
+    motion.addLast(e);
+    motion.addLast(l1);
+    motion.addLast(l2);
+    motion.addLast(o);
 
+    // Visual wiring (arrows)
     motion.markHead(h);
-    motion.render("char_list.mp4");
+    motion.setCircular(false); // default anyway
 
-    return 0;
+    motion.render("char_list.mp4");
 }

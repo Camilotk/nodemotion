@@ -20,6 +20,9 @@ class Node {
     void setHead(bool isHead);
     bool isHead() const;
 
+    void setHighlighted(bool on);
+    bool isHighlighted() const;
+
     // World–space center of the pointer circle (anchor for arrows)
     sf::Vector2f pointerCenter() const;
 
@@ -35,6 +38,7 @@ class Node {
     Node* m_next{nullptr};
     bool m_visible{false};
     bool m_isHead{false};
+    bool m_highlighted{false};
 
     static sf::Font& font();
 };

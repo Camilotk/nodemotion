@@ -24,3 +24,6 @@ target_link_libraries(node_demo PRIVATE NodeMotion)
 
 add_executable(int_demo examples/int_demo.cpp)
 target_link_libraries(int_demo PRIVATE NodeMotion)
+
+add_executable(list_ops_demo examples/list_ops_demo.cpp)
+target_link_libraries(list_ops_demo PRIVATE NodeMotion)

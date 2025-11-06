@@ -29,4 +29,4 @@ class FfmpegExporter : public IVideoExporter {
     void closePipe();
 };
 
-} // namespace nodemotion
+}
