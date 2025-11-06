@@ -41,10 +41,14 @@ Each operation is captured, replayed, and rendered deterministically, producing 
 
 **Build Instructions**
 ```bash
-conan install . --output-folder=build --build=missing
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build .
+apt update
+apt install -y git build-essential cmake python3 python3-pip ffmpeg pkg-config \
+    libx11-dev libgl1-mesa-dev libudev-dev libfreetype6-dev libjpeg-dev \
+    libopenal-dev libsndfile1-dev libvorbis-dev libflac-dev
+pip install conan
+conan profile detect --force
+conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
+make
 ````
 
 This will build the NodeMotion static library and demonstration executables.
